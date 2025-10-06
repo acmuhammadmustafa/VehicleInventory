@@ -43,6 +43,7 @@ public class Main {
                     break;
                 case 4:
                     findVehiclesByColor();
+                    break;
                 case 5:
                     addAVehicle();
                     break;
@@ -86,7 +87,19 @@ public class Main {
             }
         }
     }
+    private static void findVehiclesByPrice() {
+        Float minPrice = ConsoleHelper.promptForFloat("Please enter the minimum price range you're searching for ");
+        Float maxPrice = ConsoleHelper.promptForFloat("Please enter the maximum price range you're searching for: ");
 
+        for (Vehicle v : inventory){
+            if(v == null){
+                continue;
+            }
+            if (v.getPrice()>= minPrice && v.getPrice()<= maxPrice){
+                displayVehicle(v);
+            }
+        }
+    }
     private static void displayVehicle(Vehicle v){
         System.out.print(v.getVehicleID()+" ");
         System.out.println(v.getColor()+ " " + v.getMakeModel());
@@ -102,18 +115,7 @@ public class Main {
         }
     }
 
-    private static void findVehiclesByPrice() {
-        Float priceToSearchFor = ConsoleHelper.promptForFloat("Please enter the price range you're searching for ");
 
-        for (Vehicle v : inventory){
-            if(v == null){
-            continue;
-        }
-        if (v.getColor().contains(v.getColor())){
-            displayVehicle(v);
-        }
-    }
-    }
 
     private static void addAVehicle() {
          long vehicleID = ConsoleHelper.promptForLong("What is the vehicle ID");
@@ -123,5 +125,16 @@ public class Main {
          float price = ConsoleHelper.promptForFloat("What is the cost of the vehicle");
 
          Vehicle newVehicle = new Vehicle(vehicleID,makeModel,color,odometerReading,price);
+         int addNewVehicle = 0;
+
+        for (int i = 0; i< Main.inventory.length; i++){
+            if (Main.inventory[i] == null){
+                addNewVehicle = i;
+                break;
+            }
+        }
+
+        Main.inventory[addNewVehicle] = new Vehicle(vehicleID, makeModel, color, odometerReading, price);
+
     }
 }

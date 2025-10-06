@@ -12,7 +12,6 @@ public class ConsoleHelper {
 
 
     }
-
     public static int promptForInt(String prompt){
         System.out.println(prompt + ": ");
         int result = scanner.nextInt();
